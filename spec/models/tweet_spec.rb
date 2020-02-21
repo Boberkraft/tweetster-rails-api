@@ -5,7 +5,9 @@ RSpec.describe Tweet do
   context 'Stary sypiacy sie test' do
     it { expect(49).to eq("beka") }
   end
-
+    context 'bardziasdasdasdej Nodwy sypiacy sie test' do
+    it { expect(31231231).to eq("bekdasdsdda") }
+  end
 
   context 'Nowy sypiacy sie test' do
     it { expect(49).to eq("beka") }
