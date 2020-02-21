@@ -5,4 +5,9 @@ RSpec.describe Tweet do
   context 'Stary sypiacy sie test' do
     it { expect("beka").to eq("beka") }
   end
+  
+  
+   context 'nowe sypiacy sie test' do
+    it { expect("dasdasd").to eq("beka") }
+  end
 end
