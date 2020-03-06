@@ -28,6 +28,7 @@ jobs:
         PR_BODY: ${{ steps.findPr.outputs.body }}
     - name: Parse Pull request message
       run: |
+        echo $GITHUB_WORKSPACE
         $HOME/tweetster-rails-api/lib/scripts/pull_request_parser.rb
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
