@@ -7,6 +7,10 @@ RSpec.describe Tweet do
   end
 
   context 'test drugiego pliku' do
-    it { expect(49).to eq(492) }
+    it { expect(49).to eq(49) }
+  end
+
+  context 'test asdas pliku' do
+    it { expect(49).to eq(49) }
   end
 end
