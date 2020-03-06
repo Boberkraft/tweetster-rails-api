@@ -29,7 +29,7 @@ jobs:
     - name: Parse Pull request message
       run: |
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
-        sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
+        sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
     - name: Bundler Install
