@@ -5,7 +5,7 @@ require 'json'
 # https://stackoverflow.com/questions/2660571/exporting-an-environment-variable-in-ruby
 #
 def pr_body_settings
-  body = ENV['PR_BODY'] || ' { "other_repo_branch_name": "kabandasdosy" } '
+  body = ENV['PR_BODY'] || ' { "other_repo_branch_name": "kabanosy" } '
 
   raise 'Nie ma ustawień bota?' if body.index('{').nil? || body.index('}').nil?
 
