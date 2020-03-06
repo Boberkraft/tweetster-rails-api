@@ -30,6 +30,14 @@ jobs:
       run: |
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
         sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
+
+    - name: Checkout chess repo
+      uses: actions/checkout@v2
+      with:
+        repository: Boberkraft/chess
+        path: chess
+        ref: env.OTHER_REPO 
+
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
     - name: Bundler Install
