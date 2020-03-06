@@ -14,7 +14,7 @@ def pr_body_settings
 
 
 
-  other_repo_branch_name = hash[:other_repo_branch_name].gsub(/[^0-9a-z\-_]/, '')
+  other_repo_branch_name = hash['other_repo_branch_name'].gsub(/[^0-9a-z\-_]/, '')
 
 
   puts "OTHER_REPO=#{other_repo_branch_name.chomp}"
