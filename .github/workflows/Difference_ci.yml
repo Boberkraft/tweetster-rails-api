@@ -11,7 +11,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: master
-        path: tweetster-rails-api  
 
     - uses: actions/setup-ruby@v1
       with:
