@@ -37,16 +37,16 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: Boberkraft/chess
-        path: chess
         ref: ${{ env.OTHER_REPO }}
+        path: chess
       
     - name: Checkout chess repo with master branc
       if: ${{ env.OTHER_REPO != '' }}
       uses: actions/checkout@v2
       with:
         repository: Boberkraft/chess
-        path: chess
         ref: master
+        path: chess
 
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
