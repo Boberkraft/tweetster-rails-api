@@ -28,7 +28,7 @@ jobs:
         PR_BODY: ${{ steps.findPr.outputs.body }}
     - name: Parse Pull request message
       run: |
-        $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
+        lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
         echo $OTHER_REPO
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
