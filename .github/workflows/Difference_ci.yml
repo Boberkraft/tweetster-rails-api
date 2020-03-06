@@ -22,14 +22,15 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     # This will echo "Your PR is 7", or be skipped if there is no current PR.
-    - run: echo "Your PR is ${PR}"
-      if: success() && steps.findPr.outputs.number
+    - run: echo "Your PR_BODY is ${PR_BODY}"
+      if: success() && steps.findPr.outputs.body
       env:
         PR_BODY: ${{ steps.findPr.outputs.body }}
     - name: Parse Pull request message
       run: |
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
         sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
+        echo "Customowy branch to ${OTHER_REPO}"
 
     - name: Checkout chess repo with typed branch
       if: ${{ env.OTHER_REPO == '' }}
