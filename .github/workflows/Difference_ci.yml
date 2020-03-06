@@ -36,7 +36,7 @@ jobs:
       with:
         repository: Boberkraft/chess
         path: chess
-        ref: {{ env.OTHER_REPO }}
+        ref: ${{ env.OTHER_REPO }}
 
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
