@@ -16,6 +16,9 @@ jobs:
       with:
         ruby-version: 2.4.x
 
+    - name: Install Gems
+      run: gem install json
+
     - name: Checkout chess repo
       uses: actions/checkout@v2
       with:
