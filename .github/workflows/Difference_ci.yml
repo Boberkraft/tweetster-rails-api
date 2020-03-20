@@ -14,39 +14,34 @@ jobs:
 
     - uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.4.x  
-      
+        ruby-version: 2.4.x
+
+    - name: Checkout chess repo
+      uses: actions/checkout@v2
+      with:
+        repository: Boberkraft/chess
+        path: chess
+
       # Find the PR associated with this push, if there is one.
     - uses: jwalton/gh-find-current-pr@v1
       id: findPr
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-    # This will echo "Your PR is 7", or be skipped if there is no current PR.
+      # This will echo "Your PR is 7", or be skipped if there is no current PR.
     - run: echo "Your PR_BODY is ${PR_BODY}"
       if: success() && steps.findPr.outputs.body
       env:
         PR_BODY: ${{ steps.findPr.outputs.body }}
+
     - name: Parse Pull request message
       run: |
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
-        sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb > temp.sh ; . temp.sh
-        echo "Customowy branch to ${OTHER_REPO}"
+        sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
 
-    - name: Checkout chess repo with typed branch
-      if: ${{ env.OTHER_REPO == '' }}
-      uses: actions/checkout@v2
-      with:
-        repository: Boberkraft/chess
-        ref: ${{ env.OTHER_REPO }}
-        path: chess
-      
-    - name: Checkout chess repo with master branc
-      if: ${{ env.OTHER_REPO != '' }}
-      uses: actions/checkout@v2
-      with:
-        repository: Boberkraft/chess
-        ref: master
-        path: chess
+    - name: Change branches
+      run: |
+        chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+        sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
 
     - name: Install dependentices
       run: sudo apt-get install libsqlite3-dev
