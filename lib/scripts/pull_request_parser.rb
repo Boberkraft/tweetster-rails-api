@@ -21,7 +21,7 @@ a tutaj coś dodatkowego
 '
 end
 
-CUSTOM_BRANCH_NAME = 'test'
+CUSTOM_BRANCH_NAME = nil
 
 def branch_name
   return CUSTOM_BRANCH_NAME if CUSTOM_BRANCH_NAME
@@ -46,7 +46,7 @@ def find_proper_name(name)
 end
 
 def pr_body_settings
-  body = ENV['PR_BODY'] || test_pr_body
+  body = ENV['PR_BODY'] || '' #|| test_pr_body
 
   repos = {}
 
