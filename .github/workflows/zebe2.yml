@@ -1,0 +1,22 @@
+name: Report Outcome
+
+on: repository_dispatch
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: echo github.event.action: ${{ github.event.action }}
+      - name: Create Zeebe Workflow
+        uses: jwulf/zeebe-action@master
+        with:
+          clientConfig: ${{ secrets.ZEEBE_CLIENT_CONFIG }}
+          operation: createWorkflowInstance
+          bpmnProcessId: throw-test
+          variables: '{"event": "${{ github.event.action }}" }'
