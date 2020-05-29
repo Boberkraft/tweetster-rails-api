@@ -12,8 +12,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: |
-          echo github.event.action: ${{ github.event.action }}
+        run: echo github.event.action: ${{ github.event.action }}
       - name: Create Zeebe Workflow
         uses: jwulf/zeebe-action@master
         with:
@@ -21,4 +20,3 @@ jobs:
           operation: createWorkflowInstance
           bpmnProcessId: throw-test
           variables: '{"event": "${{ github.event.action }}" }'
-          
