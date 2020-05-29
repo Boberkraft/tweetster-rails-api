@@ -1,6 +1,6 @@
 name: Run Get Time Demo
 
-on: [repository_dispatch]
+on: [push]
 
 jobs:
   demo-get-time:
