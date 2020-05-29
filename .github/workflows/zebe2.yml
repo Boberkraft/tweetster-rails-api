@@ -20,3 +20,4 @@ jobs:
           operation: createWorkflowInstance
           bpmnProcessId: throw-test
           variables: '{"event": "${{ github.event.action }}" }'
+          
