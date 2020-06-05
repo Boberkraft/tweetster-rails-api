@@ -1,0 +1,32 @@
+name: Run Fake test
+
+on:
+  repository_dispatch:
+    types: [on-demand-test]
+
+jobs:
+  run-tests:
+    name: OK
+    runs-on: ubuntu-latest
+    steps:
+      - name: works
+        run: |
+          echo "Running fake test"
+          echo "branch_name: ${{ github.event.client_payload.branch_name }}"
+          echo "repository_name: ${{ github.event.client_payload.repository_name }}"
+          echo "comment_repository_name: ${{ github.event.client_payload.comment_repository_name }}"
+          echo "comment_id: ${{ github.event.client_payload.comment_id }}"
+
+
+    - name: Create URL to the run output
+      id: vars
+      run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.TOKEN }}
+        repository: ${{ github.event.client_payload.comment_repository_name }}
+        comment-id: ${{ github.event.client_payload.comment_id }}
+        body: |
+          > ${{ github.event.client_payload.repository }} ${{ steps.vars.outputs.run-url }}

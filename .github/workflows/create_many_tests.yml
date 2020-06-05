@@ -1,0 +1,26 @@
+name: Create Tests
+
+on:
+  repository_dispatch:
+    types: [test-command]
+
+jobs:
+  create_many_tests:
+    runs-on: ubuntu-latest
+
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+      COMMENT_ID: ${{ github.event.client_payload.github.payload.comment.id }}
+      REPOSITORY_NAME: ${{ github.event.client_payload.github.payload.repository.full_name }}
+      REPOSITORIES: ${{ github.event.client_payload.slash_command.args }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4.x
+
+      - name: Ping main repo
+        run: |
+          chmod 777 $GITHUB_WORKSPACE/workflow/trigger.rb
+          ruby $GITHUB_WORKSPACE/workflow/trigger.rb
