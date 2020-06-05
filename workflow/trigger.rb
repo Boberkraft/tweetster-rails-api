@@ -32,10 +32,9 @@ ENV['REPOSITORIES'].split.each do |app_name|
   url = URI.parse('https://api.github.com/repos/Boberkraft/tweetster-rails-api/dispatches')
   http = Net::HTTP.new(url.host, url.port)
   http.use_ssl = true
-  resp = http.post(url.path, params.to_json, headers)
+  http.post(url.path, params.to_json, headers)
 
-  puts "Status: #{resp.status}"
-  puts resp.body
+  puts "#{app_name} sheluded"
 end
 
 puts 'ok'
