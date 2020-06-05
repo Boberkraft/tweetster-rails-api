@@ -11,3 +11,4 @@ jobs:
       - name: works
         run: |
           echo "XD"
+          echo "mam: ${{ github.event.client_payload }}"
