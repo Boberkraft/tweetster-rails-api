@@ -16,7 +16,7 @@ headers = {
   'Authorization' => "Bearer #{ENV['TOKEN']}"
 }
 
-
+puts ENV.to_h
 
 ENV['REPOSITORIES'].split.each do |app_name|
   params = {
