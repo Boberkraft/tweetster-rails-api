@@ -3,12 +3,12 @@
 require 'json'
 require 'net/http'
 
-CUSTOM_BRANCH_NAME = false
-
-def branch_name
-  return CUSTOM_BRANCH_NAME if CUSTOM_BRANCH_NAME
-  ENV['GITHUB_REF'] && ENV['GITHUB_REF'].split('/')[2]
-end
+# CUSTOM_BRANCH_NAME = false
+#
+# def branch_name
+#   return CUSTOM_BRANCH_NAME if CUSTOM_BRANCH_NAME
+#   ENV['GITHUB_REF'] && ENV['GITHUB_REF'].split('/')[2]
+# end
 
 headers = {
   'Accept' => 'application/vnd.github.everest-preview+json',
@@ -22,7 +22,7 @@ ENV['REPOSITORIES'].split.each do |app_name|
   params = {
     event_type: "on-demand-test",
     client_payload: {
-      branch_name: branch_name,
+      branch_name: '....',
       repository_name: app_name,
       comment_repository_name: ENV['REPOSITORY_NAME'],
       comment_id: ENV['COMMENT_ID']
@@ -34,6 +34,7 @@ ENV['REPOSITORIES'].split.each do |app_name|
   http.use_ssl = true
   resp = http.post(url.path, params.to_json, headers)
 
+  puts "Status: #{resp.status}"
   puts resp.body
 end
 
