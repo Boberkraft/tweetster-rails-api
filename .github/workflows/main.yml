@@ -1,0 +1,13 @@
+name: Test dispatch
+
+on:
+  repository_dispatch:
+    types: [on-demand-test]
+
+jobs:
+  on-demand-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: works
+        run: |
+          echo "XD"
