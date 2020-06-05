@@ -13,3 +13,4 @@ jobs:
         run: |
           echo "XD"
           echo "mam: ${{ github.event.client_payload.application_name }}"
+          echo "mam: ${{ github.event.client_payload.slash_command.arg1 }}"
