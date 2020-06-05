@@ -2,10 +2,10 @@ name: Test dispatch
 
 on:
   repository_dispatch:
-    types: [on-demand-test]
+    types: [on-demand-test test-command]
 
 jobs:
-  on-demand-test:
+  run-tests:
     name: OK
     runs-on: ubuntu-latest
     steps:

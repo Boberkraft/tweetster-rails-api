@@ -74,3 +74,16 @@ jobs:
         rake db:migrate RAILS_ENV=development
     - name: Testing your branch....
       run: bundle exec rake my_namespace:my_task1
+
+    - name: Create URL to the run output
+      id: vars
+      run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+    - name: Update comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.TOKEN }}
+        repository: ${{ github.event.client_payload.repository }}
+        comment-id: ${{ github.event.client_payload.comment_id }}
+        body: |
+          > ${{ github.event.client_payload.repository }} ${{ steps.vars.outputs.run-url }}

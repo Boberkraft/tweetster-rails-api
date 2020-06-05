@@ -10,4 +10,4 @@ jobs:
         uses: peter-evans/slash-command-dispatch@v1
         with:
           token: ${{ secrets.TOKEN }}
-          commands: on-demand-test
+          commands: test
