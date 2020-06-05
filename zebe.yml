@@ -1,6 +1,6 @@
 name: Run Get Time Demo
 
-on: [push]
+on: [push]g
 
 jobs:
   report:
