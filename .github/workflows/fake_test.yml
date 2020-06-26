@@ -65,13 +65,8 @@ jobs:
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
+          cd $GITHUB_WORKSPACE/tweetster-rails-api
 
-      - name: Checkout MAIN repo
-        uses: actions/checkout@v2
-        with:
-          repository: Boberkraft/${{ github.event.client_payload.repository_name }}
-          path: ${{ github.event.client_payload.repository_name }}
-          ref: master
 
       - name: Install dependentices
         run: sudo apt-get install libsqlite3-dev
