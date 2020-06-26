@@ -2,23 +2,21 @@
 
 require 'json'
 
-PARSED_FILE = File.join(ENV['HOME'], 'parsed_pr.txt')
+REPOS = %w[tweetster-rails-api chess]
 
-def get_parsed_pr
-  raise 'No parsed pr!' unless File.exists?(PARSED_FILE)
-  JSON.parse(File.read(PARSED_FILE))
+def remote_branch_exists?
+  branch = ENV['BRANCH_NAME']
+  system("git branch --list #{b}| grep #{branch}")
 end
 
-
-
-def switch_branches(repos_with_branches)
-  repos_with_branches.each do |repo, branch_name|
+def switch_branches
+  REPOS.each do |repo, branch_name|
     `cd #{File.join(ENV['HOME'], repo)}`
-    `git checkout #{branch_name}`
+    `git checkout #{branch_name}` if remote_branch_exists?
   end
 end
 
 
-switch_branches(get_parsed_pr)
+switch_branches
 
 

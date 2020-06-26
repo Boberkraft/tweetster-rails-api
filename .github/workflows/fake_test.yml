@@ -8,14 +8,93 @@ jobs:
   run-tests:
     name: OK
     runs-on: ubuntu-latest
+    env:
+      REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
+      BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
+
     steps:
       - name: works
         run: |
-          echo "Running fake test"
+          echo "Running test"
           echo "branch_name: ${{ github.event.client_payload.branch_name }}"
           echo "repository_name: ${{ github.event.client_payload.repository_name }}"
           echo "comment_repository_name: ${{ github.event.client_payload.comment_repository_name }}"
           echo "comment_id: ${{ github.event.client_payload.comment_id }}"
+
+
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4.x
+
+
+
+
+
+
+
+
+      - name: Checkout tweetster-rails-api repo
+        uses: actions/checkout@v2
+        with:
+          repository: Boberkraft/tweetster-rails-api
+          path: tweetster-rails-api
+
+      - name: Checkout chess repo
+        uses: actions/checkout@v2
+        with:
+          repository: Boberkraft/chess
+          path: chess
+
+      - name: Change branches
+        env:
+          BRANCH_NAME: master
+        run: |
+          chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+          sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+
+      - name: Checkout MAIN repo
+        uses: actions/checkout@v2
+        with:
+          repository: Boberkraft/${{ github.event.client_payload.repository_name }}
+          path: ${{ github.event.client_payload.repository_name }}
+          ref: master
+
+      - name: Install dependentices
+        run: sudo apt-get install libsqlite3-dev
+      - name: Bundler Install
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          rake db:migrate RAILS_ENV=development
+      - name: Testing master...
+        run: bundle exec rake my_namespace:my_task1
+
+
+      - name: Change branches
+        env:
+          BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
+        run: |
+          chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+          sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+
+
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4.x
+      - name: Install dependentices
+        run: sudo apt-get install libsqlite3-dev
+      - name: Bundler Install
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          rake db:migrate RAILS_ENV=development
+      - name: Testing your branch....
+        run: bundle exec rake my_namespace:my_task1
+
+
       - name: Create URL to the run output
         id: vars
         run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
