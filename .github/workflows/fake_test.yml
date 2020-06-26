@@ -38,6 +38,9 @@ jobs:
           ruby-version: 2.4.x
 
 
+      - name: da1
+        run: sudo apt-get install tree
+
 
       - name: Checkout tweetster-rails-api repo
         uses: actions/checkout@v2
