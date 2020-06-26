@@ -12,6 +12,7 @@ end
 def switch_branches
   REPOS.each do |repo|
     puts ENV['HOME']
+    puts ENV['GITHUB_WORKSPACE']
     puts repo
 
 
