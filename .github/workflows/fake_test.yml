@@ -60,8 +60,8 @@ jobs:
         env:
           BRANCH_NAME: master
         run: |
-          chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
-          sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
+          sudo $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
 
       - name: Checkout MAIN repo
         uses: actions/checkout@v2
