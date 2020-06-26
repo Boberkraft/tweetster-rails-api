@@ -11,11 +11,7 @@ end
 
 def switch_branches
   REPOS.each do |repo|
-    puts ENV['HOME']
-    puts ENV['GITHUB_WORKSPACE']
-    puts repo
-
-
+    `tree /home/runner/work/tweetster-rails-api/`
     `tree #{ENV['GITHUB_WORKSPACE']}`
     `tree #{File.join(ENV['HOME'], repo)}`
     `cd #{File.join(ENV['GITHUB_WORKSPACE'], repo)}`
