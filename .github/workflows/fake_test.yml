@@ -11,7 +11,6 @@ jobs:
     env:
       REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
-      MY_PATH: ${{ env.GITHUB_WORKSPACE }}
 
     steps:
       - name: works
@@ -58,6 +57,7 @@ jobs:
         env:
           BRANCH_NAME: master
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
+          MY_PATH: ${{ env.GITHUB_WORKSPACE }}
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           sudo $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
