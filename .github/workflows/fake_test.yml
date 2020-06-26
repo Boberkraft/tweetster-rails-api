@@ -52,19 +52,11 @@ jobs:
           path: chess
 
 
-      - name: da1
-        run: sudo apt-get install tree
-
-      - name: da
-        run: tree $GITHUB_WORKSPACE
-      - name: da2
-        run: tree $HOME
-
-
 
       - name: Change branches
         env:
           BRANCH_NAME: master
+          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           sudo $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
@@ -90,6 +82,7 @@ jobs:
       - name: Change branches
         env:
           BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
+          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
         run: |
           chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
           sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb

@@ -11,6 +11,7 @@ end
 
 def switch_branches
   REPOS.each do |repo|
+    puts ENV.to_h
     `cd #{File.join(ENV['GITHUB_WORKSPACE'], repo)}`
     `git checkout #{ENV['BRANCH_NAME']}` if remote_branch_exists?
   end

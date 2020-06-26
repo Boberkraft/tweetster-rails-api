@@ -89,3 +89,15 @@ jobs:
         comment-id: ${{ github.event.client_payload.comment_id }}
         body: |
           > ${{ github.event.client_payload.repository }} ${{ steps.vars.outputs.run-url }}
+
+
+
+
+
+          - name: da1
+            run: sudo apt-get install tree
+
+          - name: da
+            run: tree $GITHUB_WORKSPACE
+          - name: da2
+            run: tree $HOME
