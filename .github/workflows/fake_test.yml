@@ -38,6 +38,9 @@ jobs:
           ruby-version: 2.4.x
 
 
+      - name: da1
+        run: sudo apt-get install tree
+
       - name: da
         run: tree $GITHUB_WORKSPACE
       - name: da2
