@@ -15,10 +15,9 @@ def switch_branches
     puts repo
 
 
-    `tree #{ENV['HOME']}`
-    `ls #{ENV['HOME']}`
+    `tree #{ENV['GITHUB_WORKSPACE']}`
     `tree #{File.join(ENV['HOME'], repo)}`
-    `cd #{File.join(ENV['HOME'], repo)}`
+    `cd #{File.join(ENV['GITHUB_WORKSPACE'], repo)}`
     `git checkout #{ENV['BRANCH_NAME']}` if remote_branch_exists?
   end
 end
