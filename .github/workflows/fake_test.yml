@@ -11,6 +11,7 @@ jobs:
     env:
       REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
+      MY_PATH: ${{ env.GITHUB_WORKSPACE }}
 
     steps:
       - name: works

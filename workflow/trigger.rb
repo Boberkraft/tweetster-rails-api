@@ -37,4 +37,3 @@ ENV['REPOSITORIES'].split.each do |app_name|
   puts "#{app_name} sheluded"
 end
 
-puts 'ok'
