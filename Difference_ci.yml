@@ -45,6 +45,8 @@ jobs:
         sudo $GITHUB_WORKSPACE/lib/scripts/pull_request_parser.rb
 
     - name: Change branches
+      env:
+        GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
       run: |
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
         sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
