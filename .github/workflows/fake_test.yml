@@ -39,10 +39,8 @@ jobs:
 
 
       - name: da
-        id: vars
         run: tree $GITHUB_WORKSPACE
       - name: da2
-        id: vars
         run: tree $HOME
 
 
