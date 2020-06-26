@@ -58,6 +58,7 @@ jobs:
           BRANCH_NAME: master
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
           MY_PATH: ${{ env.GITHUB_WORKSPACE }}
+          AAAAAAA: eeeeeeeee
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           sudo $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
