@@ -38,8 +38,12 @@ jobs:
           ruby-version: 2.4.x
 
 
-
-
+      - name: da
+        id: vars
+        run: tree $GITHUB_WORKSPACE
+      - name: da2
+        id: vars
+        run: tree $HOME
 
 
 
