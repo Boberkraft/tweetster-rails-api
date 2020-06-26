@@ -14,8 +14,7 @@ def switch_branches
     puts ENV.to_h
     puts `tree #{ENV['GITHUB_WORKSPACE']}`
     puts File.join(ENV['GITHUB_WORKSPACE'], repo)
-    `cd #{File.join(ENV['GITHUB_WORKSPACE'], repo)}`
-    `git checkout #{ENV['BRANCH_NAME']}` if remote_branch_exists?
+    system("#{File.join(ENV['GITHUB_WORKSPACE'], repo)} && #{remote_branch_exists? ? ENV['BRANCH_NAME'] : 'cat "a"' }")
   end
 end
 
