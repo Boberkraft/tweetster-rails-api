@@ -10,9 +10,15 @@ def remote_branch_exists?
 end
 
 def switch_branches
-  REPOS.each do |repo, branch_name|
-    `cd #{repo}`
-    `git checkout #{branch_name}` if remote_branch_exists?
+  REPOS.each do |repo|
+    puts ENV['HOME']
+    puts repo
+
+
+    `ls #{ENV['HOME']}`
+    `tree #{ENV['HOME']}`
+    `cd #{File.join(ENV['HOME'], repo)}`
+    `git checkout #{ENV['BRANCH_NAME']}` if remote_branch_exists?
   end
 end
 
