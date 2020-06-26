@@ -6,7 +6,7 @@ REPOS = %w[tweetster-rails-api chess]
 
 def remote_branch_exists?
   branch = ENV['BRANCH_NAME']
-  system("git branch --list #{b}| grep #{branch}")
+  system("git branch --list #{branch}| grep #{branch}")
 end
 
 def switch_branches
