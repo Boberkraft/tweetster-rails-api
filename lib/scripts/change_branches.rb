@@ -11,9 +11,6 @@ end
 
 def switch_branches
   REPOS.each do |repo|
-    `tree /home/runner/work/tweetster-rails-api/`
-    `tree #{ENV['GITHUB_WORKSPACE']}`
-    `tree #{File.join(ENV['HOME'], repo)}`
     `cd #{File.join(ENV['GITHUB_WORKSPACE'], repo)}`
     `git checkout #{ENV['BRANCH_NAME']}` if remote_branch_exists?
   end
