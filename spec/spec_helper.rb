@@ -18,14 +18,12 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
   # Use color in STDOUT
-  config.color = true
-
-  # Use color not only in STDOUT but also in pagers and files
-  config.tty = true
-
-  # Use the specified formatter
-  config.formatter = :documentation # :progress, :html,
-  # :json, CustomFormatterClass
+  #
+  if ENV['GITHUB_SHA']
+    config.color = true
+    # Use color not only in STDOUT but also in pagers and files
+    config.tty = true
+  end
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
