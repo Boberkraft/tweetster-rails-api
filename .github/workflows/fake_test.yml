@@ -28,6 +28,7 @@ jobs:
       - run: sudo service mysql start
 
       - run: |
+          export MYSQL_HOST=127.0.0.1
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin --port=4120
 
       - name: Creating link.
