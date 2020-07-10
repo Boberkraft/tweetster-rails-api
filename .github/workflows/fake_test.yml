@@ -33,9 +33,9 @@ jobs:
             > ${{ github.event.client_payload.repository_name }}: ${{ steps.vars.outputs.run-url }}
 
 
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.4.x
+          ruby-version: 2.3.3
 
 
       - uses: mirromutth/mysql-action@v1.1
