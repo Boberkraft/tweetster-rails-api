@@ -66,6 +66,12 @@ jobs:
           repository: Boberkraft/chess
           path: chess
 
+      - name: Checkout Rails-4-Twitter-Clone
+        uses: actions/checkout@v2
+        with:
+          repository: Boberkraft/Rails-4-Twitter-Clone
+          path: Rails-4-Twitter-Clone
+
 
 
       - name: Change branches
