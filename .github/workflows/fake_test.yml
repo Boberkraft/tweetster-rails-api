@@ -60,7 +60,7 @@ jobs:
         working-directory: ${{ env.REPOSITORY_NAME }}
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('gemfile.lock')) }}
+          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format('{0}/{1}/{2}', github.workspace,  env.REPOSITORY_NAME, 'gemfile.lock')) }}
 
       - name: Installing libs
         run: |
