@@ -23,16 +23,6 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-
-      - name: Starting MySQL
-        run: sudo service mysql start
-
-      - name: DEBUG testing if db works
-        run: |
-          export MYSQL_HOST=127.0.0.1
-          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
-          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
-
       - name: DEBUG INFO
         run: |
           echo "Running test"
@@ -51,6 +41,15 @@ jobs:
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
             > ${{ github.event.client_payload.repository_name }}: ${{ steps.vars.outputs.run-url }}
+            
+      - name: Starting MySQL
+        run: sudo service mysql start
+
+      - name: DEBUG testing if db works
+        run: |
+          export MYSQL_HOST=127.0.0.1
+          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - uses: ruby/setup-ruby@v1
         with:
