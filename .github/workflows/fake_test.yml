@@ -106,9 +106,9 @@ jobs:
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
-          rake db:create RAILS_ENV=test
-          rake db:schema:load RAILS_ENV=test
-          rake db:migrate RAILS_ENV=test
+          bundle exec rake db:create RAILS_ENV=test
+          bundle exec rake db:schema:load RAILS_ENV=test
+          bundle exec rake db:migrate RAILS_ENV=test
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
