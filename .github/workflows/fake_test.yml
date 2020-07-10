@@ -25,7 +25,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS super-db-test;'
+      - run: mysql -h 127.0.0.1 --port 3306 -u root -p password -e 'CREATE DATABASE IF NOT EXISTS super-db-test;'
 
       - name: works
         run: |
