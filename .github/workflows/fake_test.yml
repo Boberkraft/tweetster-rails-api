@@ -47,8 +47,8 @@ jobs:
           mysql version: '5.5.62' # Optional, default value is "latest". The version of the MySQL
           mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
           mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
-          mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: ${{ secrets.DatabasePassword }}
+          mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          mysql password: 'admin'
 
       - name: Installing tree
         run: sudo apt-get install tree
