@@ -89,6 +89,9 @@ jobs:
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
           gem install bundler --version=1.13
+
+          sudo gem install mysql2 --version=0.3.18 -- --with-mysql-dir=/etc/mysql/
+
           bundle install --jobs 4 --retry 3 --full-index
 
           mv db/cli-schema.rb db/schema.rb
