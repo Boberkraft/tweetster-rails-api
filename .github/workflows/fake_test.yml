@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:5.6
         ports:
-          - 3306:3306
+          - 3306
         env:
           MYSQL_DATABASE: super-db-test
           MYSQL_ROOT_PASSWORD: admin
@@ -25,12 +25,10 @@ jobs:
     steps:
 
       - name: Starting MySQL
-        run: |
-          sudo service mysql start
-          echo /var/log/mysql
+        run: sudo service mysql start
 
       - name: DEBUG testing if db works
-        run: |
+      - run: |
           export MYSQL_HOST=127.0.0.1
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
@@ -98,7 +96,8 @@ jobs:
 
           bundle --jobs 4 --retry 3
 
-          mv db/cli-schema.rb db/schema.rb
+          mv db/schema.rb-ci db/schema.rb
+          mv config/database.yml-ci config/database.yml
 
           rake db:create
           rake db:schema:load
