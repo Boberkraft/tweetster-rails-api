@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/chess/.idea/chess.iml" filepath="$USER_HOME$/chess/.idea/chess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Rails-4-Twitter-Clone/.idea/Rails-4-Twitter-Clone.iml" filepath="$PROJECT_DIR$/../Rails-4-Twitter-Clone/.idea/Rails-4-Twitter-Clone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../chess/.idea/chess.iml" filepath="$PROJECT_DIR$/../chess/.idea/chess.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tweetster-rails-api.iml" filepath="$PROJECT_DIR$/.idea/tweetster-rails-api.iml" />
     </modules>
   </component>

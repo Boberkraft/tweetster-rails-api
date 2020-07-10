@@ -86,7 +86,7 @@ jobs:
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
-          gem install bundler-1.13
+          gem install bundler --version=1.13
           bundle install --jobs 4 --retry 3 --full-index
           mv db/cli-schema.rb db/schema.rb
           bundle exec rake db:schema:load
