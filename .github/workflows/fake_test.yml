@@ -25,8 +25,6 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - run: sudo netstat -lnp | grep mysql
-      - run: sudo netstat -lnp
       - run: mysql -h 127.0.0.1 -u root -p password -e 'CREATE DATABASE IF NOT EXISTS super-db-test;'
 
       - name: works
