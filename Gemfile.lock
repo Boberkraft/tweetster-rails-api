@@ -154,7 +154,6 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.0)
   rspec-rails
-  sqlite3
   tzinfo-data
 
 RUBY VERSION

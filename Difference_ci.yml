@@ -51,8 +51,7 @@ jobs:
         chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
         sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
 
-    - name: Install dependentices
-      run: sudo apt-get install libsqlite3-dev
+
     - name: Bundler Install
       run: |
         gem install bundler
