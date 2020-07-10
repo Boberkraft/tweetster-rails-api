@@ -130,4 +130,4 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: 🙆🏻 💔
+            > ${{ github.event.client_payload.repository_name }}: 😭💔
