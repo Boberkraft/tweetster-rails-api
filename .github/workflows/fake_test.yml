@@ -18,15 +18,11 @@ jobs:
         ports:
           - 3306
         env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: admin
           MYSQL_DATABASE: super-db-test
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: admin
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - run: mysql -h 127.0.0.1 -u root -p password -e 'CREATE DATABASE IF NOT EXISTS super-db-test;'
-
       - name: works
         run: |
           echo "Running test"
