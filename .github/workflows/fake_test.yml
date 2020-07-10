@@ -88,6 +88,7 @@ jobs:
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
+          rvm reset
           gem install bundler --version=1.13
 
           bundle --jobs 4 --retry 3 --full-index
