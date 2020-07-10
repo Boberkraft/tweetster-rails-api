@@ -26,7 +26,7 @@ jobs:
 
       - run: sudo service mysql start
       - run: |
-        echo "${{ job.services.mysql.ports['3306']] }}"
+        echo "${{ job.services.mysql.ports }}"
         mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - name: Creating link.
