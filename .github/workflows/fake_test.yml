@@ -20,7 +20,6 @@ jobs:
         env:
           MYSQL_DATABASE: super-db-test
           MYSQL_ROOT_PASSWORD: admin
-          MYSQL_TCP_PORT: 4120
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
@@ -29,7 +28,8 @@ jobs:
 
       - run: |
           export MYSQL_HOST=127.0.0.1
-          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin --port=4120
+          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - name: Creating link.
         run: |
