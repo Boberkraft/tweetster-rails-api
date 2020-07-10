@@ -38,7 +38,7 @@ jobs:
           ruby-version: 2.4.x
 
 
-      - name: da1
+      - name: Installing tree
         run: sudo apt-get install tree
 
 
@@ -73,6 +73,7 @@ jobs:
       - name: Bundler Install
         run: |
           gem install bundler
+          pwd
           bundle install --jobs 4 --retry 3
           rake db:migrate RAILS_ENV=development
       - name: Testing master...
