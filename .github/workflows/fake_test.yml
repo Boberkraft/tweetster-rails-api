@@ -23,9 +23,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - run: |
-          sudo mkdir -p /var/run/mysqld
-          sudo chown mysql:mysql /var/run/mysqld
+
 
       - run: mysql -uroot -padmin --port=3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
       - name: Creating link.
