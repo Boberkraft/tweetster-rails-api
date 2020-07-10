@@ -53,7 +53,7 @@ jobs:
       - name: Installing libs
         run: |
           sudo apt-get install tree
-          sudo apt-get install libmysqlclient-dev
+          sudo apt-get install libmariadbclient-dev
 
 
       - name: Checkout tweetster-rails-api repo
