@@ -20,7 +20,6 @@ jobs:
         env:
           MYSQL_DATABASE: super-db-test
           MYSQL_ROOT_PASSWORD: admin
-          MYSQL_HOST: 127.0.0.1
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
@@ -28,7 +27,7 @@ jobs:
           sudo mkdir -p /var/run/mysqld
           sudo chown mysql:mysql /var/run/mysqld
 
-      - run: mysql -uroot -padmin --host=127.0.0.1 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
+      - run: mysql -uroot -padmin --host=0.0.0.0 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
       - name: Creating link.
         run: |
           echo "Running test"
