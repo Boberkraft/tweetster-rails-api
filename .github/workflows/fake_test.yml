@@ -65,7 +65,7 @@ jobs:
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
-          cd $GITHUB_WORKSPACE/tweetster-rails-api
+          cd $GITHUB_WORKSPACE/${{ env.REPOSITORY_NAME }}
 
 
       - name: Install dependentices
