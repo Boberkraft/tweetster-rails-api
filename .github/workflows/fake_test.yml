@@ -52,9 +52,6 @@ jobs:
           mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: 'admin'
 
-      - name: start?
-        run: sudo service mysql start
-
       - name: Installing libs
         run: |
           sudo apt-get install tree
