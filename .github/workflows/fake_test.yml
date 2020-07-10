@@ -14,9 +14,9 @@ jobs:
 
     services:
       mysql:
-        image: 127.0.0.1/mysql:5.6
+        image: mysql:5.6
         ports:
-          - 3306
+          - 3306:3306
         env:
           MYSQL_DATABASE: super-db-test
           MYSQL_ROOT_PASSWORD: admin
