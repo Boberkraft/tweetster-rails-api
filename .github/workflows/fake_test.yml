@@ -99,6 +99,9 @@ jobs:
           mv db/schema.rb-ci db/schema.rb
           mv config/database.yml-ci config/database.yml
 
+          export MYSQL_HOST=127.0.0.1
+          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
           rake db:create RAILS_ENV=test
           rake db:schema:load RAILS_ENV=test
           rake db:migrate RAILS_ENV=test
