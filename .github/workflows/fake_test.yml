@@ -84,6 +84,8 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
+          mv db/cli-schema.rb db/schema.rb
+          rake db:schema:load
           rake db:migrate RAILS_ENV=development
 
       - name: Testing master...
