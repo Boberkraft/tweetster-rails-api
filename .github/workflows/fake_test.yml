@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles(join( env.GITHUB_WORKSPACE, '/', env.REPOSITORY_NAME, '/Gemfile.lock')) }}
+          key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles(join( env.GITHUB_WORKSPACE, env.REPOSITORY_NAME, 'Gemfile.lock', '/')) }}
 
       - name: Installing libs
         run: |
