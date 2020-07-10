@@ -39,7 +39,7 @@ jobs:
 
       - uses: mirromutth/mysql-action@v1.1
         with:
-          host port: 3800 # Optional, default value is 3306. The port of host
+          host port: 3306 # Optional, default value is 3306. The port of host
           container port: 3306 # Optional, default value is 3306. The port of container
           character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
           collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
@@ -100,3 +100,24 @@ jobs:
       - name: Testing master...
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: bundle exec rspec
+
+
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        if: success()
+        with:
+          token: ${{ secrets.TOKEN }}
+          repository: ${{ github.event.client_payload.comment_repository_name }}
+          comment-id: ${{ github.event.client_payload.comment_id }}
+          body: |
+            > ${{ github.event.client_payload.repository_name }}: ![SUPER](https://user-images.githubusercontent.com/16669574/87159785-2e08e400-c2c2-11ea-8976-307132ff7d7b.png)
+
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        if: failure()
+        with:
+          token: ${{ secrets.TOKEN }}
+          repository: ${{ github.event.client_payload.comment_repository_name }}
+          comment-id: ${{ github.event.client_payload.comment_id }}
+          body: |
+            > ${{ github.event.client_payload.repository_name }}: ![KATASTOFIX](https://user-images.githubusercontent.com/16669574/87159083-0e24f080-c2c1-11ea-8b55-61d3a922b3c3.png)
