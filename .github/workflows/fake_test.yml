@@ -25,7 +25,9 @@ jobs:
     steps:
 
       - name: Starting MySQL
-        run: sudo service mysql start
+        run: |
+          sudo service mysql start
+          echo /var/log/mysql
 
       - name: DEBUG testing if db works
         run: |
