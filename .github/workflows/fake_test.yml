@@ -37,6 +37,9 @@ jobs:
         with:
           ruby-version: 2.3.3
 
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop
+
       - uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306 # Optional, default value is 3306. The port of host
@@ -48,6 +51,9 @@ jobs:
           mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
           mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: 'admin'
+
+      - name: start?
+        run: sudo service mysql start
 
       - name: Installing libs
         run: |
