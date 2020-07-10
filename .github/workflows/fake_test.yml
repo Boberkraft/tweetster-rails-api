@@ -40,7 +40,7 @@ jobs:
       - uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3800 # Optional, default value is 3306. The port of host
-          container port: 3307 # Optional, default value is 3306. The port of container
+          container port: 3306 # Optional, default value is 3306. The port of container
           character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
           collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
           mysql version: '5.7.23' # Optional, default value is "latest". The version of the MySQL
@@ -89,7 +89,7 @@ jobs:
         run: |
           gem install bundler --version=1.13
 
-          bundle --jobs 4 --retry 3 --full-index
+          bundle --jobs 4 --retry 3 --no-ri --no-rdoc
 
           mv db/cli-schema.rb db/schema.rb
 
