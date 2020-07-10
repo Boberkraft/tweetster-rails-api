@@ -77,29 +77,4 @@ jobs:
           bundle install --jobs 4 --retry 3
           rake db:migrate RAILS_ENV=development
       - name: Testing master...
-        run: bundle exec rake my_namespace:my_task1
-
-
-      - name: Change branches
-        env:
-          BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
-          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
-        run: |
-          chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
-          sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
-
-
-
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.4.x
-      - name: Install dependentices
-        run: sudo apt-get install libsqlite3-dev
-      - name: Bundler Install
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
-          rake db:migrate RAILS_ENV=development
-      - name: Testing your branch....
-        run: bundle exec rake my_namespace:my_task1
+        run: bundle exec rspec
