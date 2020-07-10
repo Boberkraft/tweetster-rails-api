@@ -25,11 +25,11 @@ jobs:
     steps:
 
       - run: sudo service mysql start
-        env:
-          xd: ${{ job.services.mysql.ports }}
 
       - run: |
-        mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
+          export MYSQL_HOST=127.0.0.1
+          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - name: Creating link.
         run: |
