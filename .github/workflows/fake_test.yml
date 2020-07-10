@@ -118,7 +118,7 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: ![SUPER](https://user-images.githubusercontent.com/16669574/87159785-2e08e400-c2c2-11ea-8976-307132ff7d7b.png)
+            > ${{ github.event.client_payload.repository_name }}: 💪
 
       - name: SAD PUDZIAN
         uses: peter-evans/create-or-update-comment@v1
@@ -128,4 +128,4 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: ![KATASTOFIX](https://user-images.githubusercontent.com/16669574/87159083-0e24f080-c2c1-11ea-8b55-61d3a922b3c3.png)
+            > ${{ github.event.client_payload.repository_name }}: 🙆🏻 💔
