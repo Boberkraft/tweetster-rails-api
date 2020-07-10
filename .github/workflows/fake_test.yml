@@ -90,7 +90,7 @@ jobs:
         run: |
           gem install bundler --version=1.13
 
-          bundle install --jobs 4 --retry 3 --full-index
+          bundle --jobs 4 --retry 3 --full-index
 
           mv db/cli-schema.rb db/schema.rb
 
