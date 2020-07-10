@@ -23,7 +23,8 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - name: works
+      - run: mysql -u root -p admin -h 127.0.0.1 -p 3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
+      - name: Creating link.
         run: |
           echo "Running test"
           echo "branch_name: ${{ github.event.client_payload.branch_name }}"
@@ -70,16 +71,14 @@ jobs:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
 
-      - name: Change branches
+      - name: Change branches on all repos
         env:
           BRANCH_NAME: master
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
           MY_PATH: ${{ env.GITHUB_WORKSPACE }}
-          AAAAAAA: eeeeeeeee
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
-          cd $GITHUB_WORKSPACE/${{ env.REPOSITORY_NAME }}
 
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
@@ -99,7 +98,7 @@ jobs:
         run: bundle exec rspec
 
 
-      - name: Update comment
+      - name: HAPPY PUDZIAN
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
@@ -109,7 +108,7 @@ jobs:
           body: |
             > ${{ github.event.client_payload.repository_name }}: ![SUPER](https://user-images.githubusercontent.com/16669574/87159785-2e08e400-c2c2-11ea-8976-307132ff7d7b.png)
 
-      - name: Update comment
+      - name: SAD PUDZIAN
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:

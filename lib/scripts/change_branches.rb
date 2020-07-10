@@ -2,7 +2,7 @@
 
 require 'json'
 
-REPOS = %w[tweetster-rails-api chess]
+REPOS = %w[tweetster-rails-api chess Rails-4-Twitter-Clone]
 
 def remote_branch_exists?
   branch = ENV['BRANCH_NAME']
