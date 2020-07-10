@@ -71,10 +71,12 @@ jobs:
       - name: Install dependentices
         run: sudo apt-get install libsqlite3-dev
       - name: Bundler Install
+        working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
           gem install bundler
-          cd $GITHUB_WORKSPACE/${{ env.REPOSITORY_NAME }}
           bundle install --jobs 4 --retry 3
           rake db:migrate RAILS_ENV=development
+
       - name: Testing master...
+        working-directory: ${{ env.REPOSITORY_NAME }}
         run: bundle exec rspec
