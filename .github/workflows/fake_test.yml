@@ -50,8 +50,10 @@ jobs:
           mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: 'admin'
 
-      - name: Installing tree
-        run: sudo apt-get install tree
+      - name: Installing libs
+        run: |
+          sudo apt-get install tree
+          sudo apt-get install libmysqlclient-dev
 
 
       - name: Checkout tweetster-rails-api repo
@@ -89,9 +91,6 @@ jobs:
           gem install bundler --version=1.13
           bundle install --jobs 4 --retry 3 --full-index
 
-          gem uninstall mysql2
-          sudo apt-get install libmysqlclient-dev
-          sudo gem install mysql2 --version=0.3.18
           mv db/cli-schema.rb db/schema.rb
 
           rake db:create
