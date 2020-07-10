@@ -28,7 +28,7 @@ jobs:
         run: sudo service mysql start
 
       - name: DEBUG testing if db works
-      - run: |
+        run: |
           export MYSQL_HOST=127.0.0.1
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
