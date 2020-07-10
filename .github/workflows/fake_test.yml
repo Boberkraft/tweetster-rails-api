@@ -12,6 +12,17 @@ jobs:
       REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
 
+    services:
+      db:
+        image: mysql:5.6
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: root
+          MYSQL_PASSWORD: admin
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: admin
+
     steps:
       - name: works
         run: |
@@ -32,25 +43,9 @@ jobs:
           body: |
             > ${{ github.event.client_payload.repository_name }}: ${{ steps.vars.outputs.run-url }}
 
-
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.3.3
-
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop
-
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: 3306 # Optional, default value is 3306. The port of host
-          container port: 3306 # Optional, default value is 3306. The port of container
-          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
-          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
-          mysql version: '5.7.23' # Optional, default value is "latest". The version of the MySQL
-          mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
-          mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
-          mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: 'admin'
 
       - name: Installing libs
         run: |
