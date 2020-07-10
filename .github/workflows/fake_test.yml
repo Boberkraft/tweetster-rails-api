@@ -91,7 +91,7 @@ jobs:
 
           gem uninstall mysql2
           sudo apt-get install libmysqlclient-dev
-          sudo gem install mysql2 --version=0.3.18 -- --with-mysql-dir=/etc/mysql/
+          sudo gem install mysql2 --version=0.3.18
           mv db/cli-schema.rb db/schema.rb
 
           rake db:create
