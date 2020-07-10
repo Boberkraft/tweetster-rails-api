@@ -89,8 +89,10 @@ jobs:
           gem install bundler --version=1.13
           bundle install --jobs 4 --retry 3 --full-index
           mv db/cli-schema.rb db/schema.rb
-          bundle exec rake db:schema:load
-          bundle exec rake db:migrate RAILS_ENV=development
+
+          rake db:create
+          rake db:schema:load
+          rake db:migrate RAILS_ENV=development
 
       - name: Testing master...
         working-directory: ${{ env.REPOSITORY_NAME }}
