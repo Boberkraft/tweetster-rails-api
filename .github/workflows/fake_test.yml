@@ -72,8 +72,6 @@ jobs:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
 
-
-
       - name: Change branches
         env:
           BRANCH_NAME: master
@@ -88,8 +86,8 @@ jobs:
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+          gem install bundler-1.13
+          bundle install --jobs 4 --retry 3 --full-index
           mv db/cli-schema.rb db/schema.rb
           bundle exec rake db:schema:load
           bundle exec rake db:migrate RAILS_ENV=development
