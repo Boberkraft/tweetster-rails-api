@@ -99,9 +99,9 @@ jobs:
           mv db/schema.rb-ci db/schema.rb
           mv config/database.yml-ci config/database.yml
 
-          rake db:create
-          rake db:schema:load
-          rake db:migrate RAILS_ENV=development
+          rake db:create RAILS_ENV=test
+          rake db:schema:load RAILS_ENV=test
+          rake db:migrate RAILS_ENV=test
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
