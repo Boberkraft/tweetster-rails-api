@@ -27,7 +27,7 @@ jobs:
           sudo mkdir -p /var/run/mysqld
           sudo chown mysql:mysql /var/run/mysqld
 
-      - run: mysql -uroot -padmin --host=0.0.0.0 --port=3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
+      - run: mysql -uroot -padmin --port=3306 -e 'CREATE DATABASE IF NOT EXISTS dupeczka;'
       - name: Creating link.
         run: |
           echo "Running test"
