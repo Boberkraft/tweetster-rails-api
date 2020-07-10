@@ -88,6 +88,9 @@ jobs:
         run: |
           gem install bundler --version=1.13
           bundle install --jobs 4 --retry 3 --full-index
+
+          gem uninstall mysql2
+          gem install mysql2 --version=0.3.18
           mv db/cli-schema.rb db/schema.rb
 
           rake db:create
