@@ -90,8 +90,8 @@ jobs:
           bundle install --jobs 4 --retry 3 --full-index
 
           gem uninstall mysql2
-          sudo apt-get install ruby-mysql2
-          gem install mysql2 --version=0.3.18
+          sudo apt-get install libmysqlclient-dev
+          sudo gem install mysql2 --version=0.3.18 -- --with-mysql-dir=/etc/mysql/
           mv db/cli-schema.rb db/schema.rb
 
           rake db:create
