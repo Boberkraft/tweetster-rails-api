@@ -96,7 +96,8 @@ jobs:
 
           bundle --jobs 4 --retry 3
 
-          mv db/schema.rb-ci db/schema.rb
+
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
           rake db:create RAILS_ENV=test
