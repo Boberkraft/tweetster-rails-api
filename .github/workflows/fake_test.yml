@@ -26,8 +26,9 @@ jobs:
 
       - run: sudo service mysql start
       - run: |
+        echo "${{ job.services.mysql.ports['3306']] }}"
         export MYQSL_HOST=127.0.0.1
-        export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+        export MYSQL_TCP_PORT=3306
         mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - name: Creating link.
