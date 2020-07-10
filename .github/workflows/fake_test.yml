@@ -73,7 +73,7 @@ jobs:
       - name: Bundler Install
         run: |
           gem install bundler
-          pwd
+          cd $GITHUB_WORKSPACE/${{ env.REPOSITORY_NAME }}
           bundle install --jobs 4 --retry 3
           rake db:migrate RAILS_ENV=development
       - name: Testing master...
