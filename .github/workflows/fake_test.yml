@@ -92,7 +92,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
-          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format("{0}/{1}/Gemfile.lock", env.GITHUB_WORKSPACE, env.REPOSITORY_NAME)) }}
+          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format('{0}/{1}/{2}', env.GITHUB_WORKSPACE, env.REPOSITORY_NAME, 'Gemfile.lock')) }}
           restore-keys: |
             ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
             ${{ runner.os }}-gem-
