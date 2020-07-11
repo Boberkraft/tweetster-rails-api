@@ -55,13 +55,13 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - run: echo "${{ format('{0}/{1}/{2}', env.GITHUB_WORKSPACE,  env.REPOSITORY_NAME, 'gemfile.lock') }}"
+      - run: echo "${{ format('{0}/{1}',  env.REPOSITORY_NAME, 'gemfile.lock') }}"
 
       - name: Setup cache key and directory for gems cache
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format('{0}/{1}/{2}', env.GITHUB_WORKSPACE,  env.REPOSITORY_NAME, 'gemfile.lock')) }}
+          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format('{0}/{1}',  env.REPOSITORY_NAME, 'gemfile.lock') ) }}
 
       - name: Installing libs
         run: |
