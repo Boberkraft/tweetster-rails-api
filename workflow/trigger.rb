@@ -3,12 +3,6 @@
 require 'json'
 require 'net/http'
 
-# CUSTOM_BRANCH_NAME = false
-#
-# def branch_name
-#   return CUSTOM_BRANCH_NAME if CUSTOM_BRANCH_NAME
-#   ENV['GITHUB_REF'] && ENV['GITHUB_REF'].split('/')[2]
-# end
 
 headers = {
   'Accept' => 'application/vnd.github.everest-preview+json',
@@ -33,6 +27,16 @@ ENV['REPOSITORIES'].split.each do |app_name|
   http = Net::HTTP.new(url.host, url.port)
   http.use_ssl = true
   http.post(url.path, params.to_json, headers)
+
+
+  url = URI.parse("https://api.github.com/repos/Boberkraft/tweetster-rails-api/runs/#{ENV['GITHUB_RUN_ID']}")
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  x = http.get(url.path, headers)
+  puts x
+  puts x.inspect
+  puts x.body
+
 
   puts "#{app_name} sheluded"
 end
