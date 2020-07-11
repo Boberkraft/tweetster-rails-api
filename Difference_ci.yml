@@ -48,8 +48,8 @@ jobs:
       env:
         GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
       run: |
-        chmod 777 $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
-        sudo $GITHUB_WORKSPACE/lib/scripts/change_branches.rb
+        chmod 777 $GITHUB_WORKSPACE/lib/workflow/change_branches.rb
+        sudo $GITHUB_WORKSPACE/lib/workflow/change_branches.rb
 
 
     - name: Bundler Install

@@ -48,8 +48,8 @@ jobs:
       - name: Link?
         id: vars
         run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v1
         with:
@@ -91,8 +91,8 @@ jobs:
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
           MY_PATH: ${{ env.GITHUB_WORKSPACE }}
         run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
 
       - name: Create hash key
         id: hash_key
@@ -128,7 +128,7 @@ jobs:
 
           bundle --jobs 4 --retry 3
 
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/prepare_schema.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
           bundle exec rake db:create RAILS_ENV=test
