@@ -16,6 +16,10 @@ http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
 x = http.get(url.path, headers)
 
+puts x
+puts x.insect
+puts x.body
+
 parsed = JSON.parse(x.body)
 
 if parsed['total_count'] != 1
