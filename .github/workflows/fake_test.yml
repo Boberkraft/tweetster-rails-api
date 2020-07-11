@@ -55,18 +55,6 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - name: Create hash key
-        id: hash_key
-        run: |
-          echo ::set-output name=key::$RUNNER_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
-
-      - run: |
-          echo $XD
-          cat $XD
-        env:
-          XD: ${{ steps.hash_key.outputs.key }}
-
-
       - name: Installing libs
         run: |
           sudo apt-get install tree
@@ -90,16 +78,6 @@ jobs:
         with:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
-          
-      - name: Setup cache key and directory for gems cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
-          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(steps.hash_key.outputs.key) }}
-          restore-keys: |
-            ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
-            ${{ runner.os }}-gem-
-            ${{ runner.os }}-
 
       - name: Change branches on all repos
         env:
@@ -109,6 +87,27 @@ jobs:
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
+
+      - name: Create hash key
+        id: hash_key
+        run: |
+          echo ::set-output name=key::$RUNNER_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
+
+      - run: |
+          echo $XD
+          cat $XD
+        env:
+          XD: ${{ steps.hash_key.outputs.key }}
+
+      - name: Setup cache key and directory for gems cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(steps.hash_key.outputs.key) }}
+          restore-keys: |
+            ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
+            ${{ runner.os }}-gem-
+            ${{ runner.os }}-
 
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
