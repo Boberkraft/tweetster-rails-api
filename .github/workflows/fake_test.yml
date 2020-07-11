@@ -55,8 +55,8 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - run:  echo "${{ env.RUNNER_WORKSPACE }}"
-      - run:  echo "${{ env.GITHUB_WORKSPACE }}"
+      - run:  echo $RUNNER_WORKSPACE
+      - run:  echo $GITHUB_WORKSPACE
       - run: echo "${{ hashFiles(format('{0}/{1}/{2}', env.RUNNER_WORKSPACE, env.REPOSITORY_NAME, 'Gemfile.lock')) }}"
 
       - name: Setup cache key and directory for gems cache
