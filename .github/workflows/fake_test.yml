@@ -60,13 +60,16 @@ jobs:
         run: |
           echo ::set-output name=key::$RUNNER_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
 
-      - run: echo $XD
+      - run: |
+          echo $XD
+          cat $XD
         env:
           XD: ${{ steps.hash_key.outputs.key }}
+
       - name: Setup cache key and directory for gems cache
         uses: actions/cache@v2
         with:
-          path: ${{ env.REPOSITORY_NAME }}/vendor/bundle
+          path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
           key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(steps.hash_key.outputs.key) }}
           restore-keys: |
             ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
@@ -110,7 +113,7 @@ jobs:
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
           gem install bundler --version=1.13  --no-ri --no-rdoc
-          bundle config path vendor/bundle
+          bundle config path $GITHUB_WORKSPACE/vendor/bundle
 
           bundle --jobs 4 --retry 3
 
