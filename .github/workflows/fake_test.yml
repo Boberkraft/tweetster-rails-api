@@ -39,18 +39,18 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - name: Checkout tweetster-rails-api repo
+      - name: pull tweetster-rails-api repo
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/tweetster-rails-api
           path: tweetster-rails-api
 
-      - name: Link?
+      - name: create 🏃 link
         id: vars
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
-      - name: Update comment
+      - name: send 🏃
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.TOKEN }}
@@ -73,13 +73,13 @@ jobs:
           sudo apt-get install tree
           sudo apt-get install libmariadbclient-dev
 
-      - name: Checkout chess repo
+      - name: pull chess repo
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/chess
           path: chess
 
-      - name: Checkout Rails-4-Twitter-Clone
+      - name: pull Rails-4-Twitter-Clone
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/Rails-4-Twitter-Clone
@@ -94,18 +94,17 @@ jobs:
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
 
-      - name: Create hash key
+      - name: Create gems cache key
         id: hash_key
         run: |
           echo ::set-output name=key::$GITHUB_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
-
       - run: |
           echo $XD
           cat $XD
         env:
           XD: ${{ steps.hash_key.outputs.key }}
 
-      - name: Setup cache key and directory for gems cache
+      - name: Create gems cache
         uses: actions/cache@v2
         with:
           path: ~/vendor/bundle
@@ -131,7 +130,7 @@ jobs:
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
-      - name: Running migrations
+      - name: rake db:migrate
         working-directory: ${{ env.REPOSITORY_NAME }}
         run:
           bundle exec rake db:create RAILS_ENV=test
@@ -146,7 +145,7 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
-      - name: HAPPY PUDZIAN
+      - name: send 💪🙂
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
@@ -156,7 +155,7 @@ jobs:
           body: |
             > 💪🙂 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: SAD PUDZIAN
+      - name: send 💔😭
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
