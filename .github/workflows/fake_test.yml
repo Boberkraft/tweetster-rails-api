@@ -92,6 +92,11 @@ jobs:
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
 
+      - name: Link?
+        run: |
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/trigger.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/trigger.rb
+
       - name: Create hash key
         id: hash_key
         run: |
