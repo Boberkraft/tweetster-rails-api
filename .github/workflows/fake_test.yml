@@ -91,7 +91,7 @@ jobs:
       - name: Create hash key
         id: hash_key
         run: |
-          echo ::set-output name=key::$RUNNER_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
+          echo ::set-output name=key::$GITHUB_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
 
       - run: |
           echo $XD
