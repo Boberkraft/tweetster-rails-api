@@ -66,15 +66,6 @@ jobs:
         env:
           XD: ${{ steps.hash_key.outputs.key }}
 
-      - name: Setup cache key and directory for gems cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
-          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(steps.hash_key.outputs.key) }}
-          restore-keys: |
-            ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
-            ${{ runner.os }}-gem-
-            ${{ runner.os }}-
 
       - name: Installing libs
         run: |
@@ -99,6 +90,16 @@ jobs:
         with:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
+          
+      - name: Setup cache key and directory for gems cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.GITHUB_WORKSPACE }}/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(steps.hash_key.outputs.key) }}
+          restore-keys: |
+            ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
+            ${{ runner.os }}-gem-
+            ${{ runner.os }}-
 
       - name: Change branches on all repos
         env:
