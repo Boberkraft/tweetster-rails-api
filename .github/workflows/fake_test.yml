@@ -115,13 +115,13 @@ jobs:
             ${{ runner.os }}-gem-
             ${{ runner.os }}-
 
-      - name: Config Bundler
+      - name: install bundler
         run: |
           gem install bundler --version=1.13  --no-ri --no-rdoc
           bundle config path ~/vendor/bundle
           gem list
 
-      - name: Bundler Install
+      - name: bundle
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
           gem list
@@ -131,6 +131,9 @@ jobs:
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
+      - name: Running migrations
+        working-directory: ${{ env.REPOSITORY_NAME }}
+        run:
           bundle exec rake db:create RAILS_ENV=test
           bundle exec rake db:schema:load RAILS_ENV=test
           bundle exec rake db:migrate RAILS_ENV=test
