@@ -62,10 +62,10 @@ jobs:
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-${{ hashFiles(format('{0}/{1}',  env.REPOSITORY_NAME, 'gemfile.lock') ) }}
-        restore-keys: |
-          ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
-          ${{ runner.os }}-gem-
-          ${{ runner.os }}-
+          restore-keys: |
+            ${{ runner.os }}-gem-${{ env.REPOSITORY_NAME }}-
+            ${{ runner.os }}-gem-
+            ${{ runner.os }}-
 
       - name: Installing libs
         run: |
