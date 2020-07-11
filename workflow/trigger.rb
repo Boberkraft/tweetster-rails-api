@@ -18,11 +18,11 @@ url = URI.parse(url)
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
 x = http.get(url.path, headers.merge('Accept' => 'application/vnd.github.antiope-preview+json'))
-puts "ok!"
+puts "ok!ok!"
 puts x
 puts x.inspect
 puts x.body
-
+puts "ok!ok!"
 
 ENV['REPOSITORIES'].split.each do |app_name|
   params = {
