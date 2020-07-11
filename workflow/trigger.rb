@@ -11,6 +11,15 @@ headers = {
 }
 
 puts ENV.to_h
+url = URI.parse("https://api.github.com/repos/Boberkraft/tweetster-rails-api/runs/#{ENV['GITHUB_RUN_ID']}")
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+x = http.get(url.path, headers)
+puts "ok!"
+puts x
+puts x.inspect
+puts x.body
+
 
 ENV['REPOSITORIES'].split.each do |app_name|
   params = {
@@ -29,13 +38,6 @@ ENV['REPOSITORIES'].split.each do |app_name|
   http.post(url.path, params.to_json, headers)
 
 
-  url = URI.parse("https://api.github.com/repos/Boberkraft/tweetster-rails-api/runs/#{ENV['GITHUB_RUN_ID']}")
-  http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = true
-  x = http.get(url.path, headers)
-  puts x
-  puts x.inspect
-  puts x.body
 
 
   puts "#{app_name} sheluded"
