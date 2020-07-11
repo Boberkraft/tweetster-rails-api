@@ -59,8 +59,10 @@ jobs:
         id: hash_key
         run: |
           echo ::set-output name=key::$RUNNER_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
-      - run: echo "${{ hashFiles(steps.hash_key.outputs.key) }}"
 
+      - run: echo $XD
+        env:
+          XD: ${{ steps.hash_key.outputs.key }}
       - name: Setup cache key and directory for gems cache
         uses: actions/cache@v2
         with:
