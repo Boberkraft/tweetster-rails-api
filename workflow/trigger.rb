@@ -12,7 +12,9 @@ headers = {
 
 
 puts ENV.to_h
-url = URI.parse("https://api.github.com/repos/Boberkraft/tweetster-rails-api/check-runs/#{ENV['GITHUB_RUN_ID']}")
+url = "https://api.github.com/repos/Boberkraft/tweetster-rails-api/actions/runs/#{ENV['GITHUB_RUN_ID']}/jobs"
+puts url
+url = URI.parse(url)
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
 x = http.get(url.path, headers.merge('Accept' => 'application/vnd.github.antiope-preview+json'))
