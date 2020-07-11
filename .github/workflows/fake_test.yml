@@ -94,8 +94,8 @@ jobs:
 
       - name: Link?
         run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/trigger.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/trigger.rb
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
 
       - name: Create hash key
         id: hash_key
