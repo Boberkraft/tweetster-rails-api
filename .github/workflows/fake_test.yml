@@ -44,7 +44,7 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: 🏃 ${{ steps.vars.outputs.run-url }}
+            > 🏃 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
       - name: Starting MySQL
         run: sudo service mysql start
@@ -149,7 +149,7 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: 💪🙂
+            > 💪🙂 ${{ github.event.client_payload.repository_name }}
 
       - name: SAD PUDZIAN
         uses: peter-evans/create-or-update-comment@v1
@@ -159,4 +159,4 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > ${{ github.event.client_payload.repository_name }}: 😭💔
+            > 💔😭 ${{ github.event.client_payload.repository_name }}
