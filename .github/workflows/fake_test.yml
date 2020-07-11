@@ -112,7 +112,7 @@ jobs:
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
-          tree $GITHUB_WORKSPACE/vendor/bundle
+          tree $GITHUB_WORKSPACE
           gem install bundler --version=1.13  --no-ri --no-rdoc
           bundle config path $GITHUB_WORKSPACE/vendor/bundle
 
