@@ -88,21 +88,18 @@ jobs:
       - name: change branches on all repos
         env:
           BRANCH_NAME: master
-          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
+          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}/tweetster-rails-api
           MY_PATH: ${{ env.GITHUB_WORKSPACE }}
-        run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
+        run: ruby lib/workflow/change_branches.rb
 
       - name: create gems cache key
         id: hash_key
         run: |
           echo ::set-output name=key::$GITHUB_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
-      - run: |
-          echo $XD
-          cat $XD
+          echo $KEY
+          cat $KEY
         env:
-          XD: ${{ steps.hash_key.outputs.key }}
+          KEY: ${{ steps.hash_key.outputs.key }}
 
       - name: create gems cache
         uses: actions/cache@v2
@@ -132,18 +129,18 @@ jobs:
 
       - name: rake db:migrate
         working-directory: ${{ env.REPOSITORY_NAME }}
-        run:
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: |
           bundle exec rake db:create RAILS_ENV=test
           bundle exec rake db:schema:load RAILS_ENV=test
           bundle exec rake db:migrate RAILS_ENV=test
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
       - name: rspec
         working-directory: ${{ env.REPOSITORY_NAME }}
-        run: bundle exec rspec
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: bundle exec rspec
 
       - name: send 💪🙂
         uses: peter-evans/create-or-update-comment@v1
