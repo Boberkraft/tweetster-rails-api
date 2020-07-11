@@ -39,7 +39,7 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - name: pull tweetster-rails-api repo
+      - name: ⬅️ tweetster-rails-api
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/tweetster-rails-api
@@ -59,7 +59,7 @@ jobs:
           body: |
             > 🏃 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: Starting MySQL
+      - name: starting MySQL
         run: sudo service mysql start
 
       - name: DEBUG testing if db works
@@ -68,24 +68,24 @@ jobs:
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
-      - name: Installing libs
+      - name: apt-get install
         run: |
           sudo apt-get install tree
           sudo apt-get install libmariadbclient-dev
 
-      - name: pull chess repo
+      - name: ⬅️ chess
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/chess
           path: chess
 
-      - name: pull Rails-4-Twitter-Clone
+      - name: ⬅️ Rails-4-Twitter-Clone
         uses: actions/checkout@v2
         with:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
 
-      - name: Change branches on all repos
+      - name: change branches on all repos
         env:
           BRANCH_NAME: master
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
@@ -94,7 +94,7 @@ jobs:
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/change_branches.rb
 
-      - name: Create gems cache key
+      - name: create gems cache key
         id: hash_key
         run: |
           echo ::set-output name=key::$GITHUB_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
@@ -104,7 +104,7 @@ jobs:
         env:
           XD: ${{ steps.hash_key.outputs.key }}
 
-      - name: Create gems cache
+      - name: create gems cache
         uses: actions/cache@v2
         with:
           path: ~/vendor/bundle
@@ -139,7 +139,7 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
-      - name: Testing master...
+      - name: rspec
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: bundle exec rspec
         env:
