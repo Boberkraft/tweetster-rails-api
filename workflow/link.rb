@@ -26,5 +26,9 @@ if parsed['total_count'] != 1
   raise 'cos mi tutaj nie gra, nie wiem jak dostac linka'
 end
 
+url = parsed['jobs'][0]['html_url']
+
 puts "mam url!"
-puts parsed['jobs'][0]['check_run_url']
+puts url
+
+system("echo ::set-output name=run-url::#{url}")

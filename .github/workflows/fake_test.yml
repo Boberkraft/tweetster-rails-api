@@ -34,9 +34,16 @@ jobs:
           echo "repository_name: ${{ github.event.client_payload.repository_name }}"
           echo "comment_repository_name: ${{ github.event.client_payload.comment_repository_name }}"
           echo "comment_id: ${{ github.event.client_payload.comment_id }}"
-      - name: Create URL to the run output
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.3.3
+
+      - name: Link?
         id: vars
-        run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID?check_suite_focus=true
+        run: |
+          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
+          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v1
         with:
@@ -54,10 +61,6 @@ jobs:
           export MYSQL_HOST=127.0.0.1
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.3.3
 
       - name: Installing libs
         run: |
@@ -91,11 +94,6 @@ jobs:
         run: |
           chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/change_branches.rb
-
-      - name: Link?
-        run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/workflow/link.rb
 
       - name: Create hash key
         id: hash_key
@@ -164,4 +162,4 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > 💔😭 ${{ github.event.client_payload.repository_name }}
+            > 💔😭 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
