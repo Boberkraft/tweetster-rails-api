@@ -39,6 +39,12 @@ jobs:
         with:
           ruby-version: 2.3.3
 
+      - name: Checkout tweetster-rails-api repo
+        uses: actions/checkout@v2
+        with:
+          repository: Boberkraft/tweetster-rails-api
+          path: tweetster-rails-api
+
       - name: Link?
         id: vars
         run: |
@@ -66,13 +72,6 @@ jobs:
         run: |
           sudo apt-get install tree
           sudo apt-get install libmariadbclient-dev
-
-
-      - name: Checkout tweetster-rails-api repo
-        uses: actions/checkout@v2
-        with:
-          repository: Boberkraft/tweetster-rails-api
-          path: tweetster-rails-api
 
       - name: Checkout chess repo
         uses: actions/checkout@v2
