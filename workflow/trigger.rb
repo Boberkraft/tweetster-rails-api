@@ -15,7 +15,7 @@ puts ENV.to_h
 url = URI.parse("https://api.github.com/repos/Boberkraft/tweetster-rails-api/check-suites/#{ENV['GITHUB_RUN_ID']}/check-runs")
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
-x = http.get(url.path, headers.merge('Authorization' => 'application/vnd.github.antiope-preview+json'))
+x = http.get(url.path, headers.merge('Accept' => 'application/vnd.github.antiope-preview+json'))
 puts "ok!"
 puts x
 puts x.inspect
