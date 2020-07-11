@@ -23,6 +23,10 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
+      - uses: baptouuuu/setup-neo4j@v1.0.0
+        with:
+          tag: '2.3.0'
+
       - name: DEBUG INFO
         run: |
           echo "Running test"
@@ -109,17 +113,17 @@ jobs:
             ${{ runner.os }}-gem-
             ${{ runner.os }}-
 
-      - name: Installing bundler
+      - name: Config Bundler
         run: |
-          tree $GITHUB_WORKSPACE
           gem install bundler --version=1.13  --no-ri --no-rdoc
+          bundle config path ~/vendor/bundle
           gem list
 
       - name: Bundler Install
         working-directory: ${{ env.REPOSITORY_NAME }}
         run: |
           gem list
-          bundle config path ~/vendor/bundle
+
           bundle --jobs 4 --retry 3
 
           ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/scripts/prepare_schema.rb
