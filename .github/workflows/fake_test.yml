@@ -55,7 +55,7 @@ jobs:
         with:
           ruby-version: 2.3.3
 
-      - run: echo "${{ format('{0}/{1}',  env.REPOSITORY_NAME, 'gemfile.lock') }}"
+      - run: echo "${{ hashFiles(format('{0}/{1}',  env.REPOSITORY_NAME, 'gemfile.lock')) }}"
 
       - name: Setup cache key and directory for gems cache
         uses: actions/cache@v2
