@@ -95,7 +95,7 @@ jobs:
           GITHUB_WORKSPACE: ${{ github.workspace }}
         run: |
           chmod 777 $SCRIPTS/change_branches.rb
-          sudo ruby $SCRIPTS/change_branches.rb
+          sudo $SCRIPTS/change_branches.rb
 
       - name: 👷🌳
         run: tree GITHUB_WORKSPACE
