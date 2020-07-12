@@ -22,5 +22,4 @@ jobs:
 
       - name: Ping main repo
         run: |
-          chmod 777 $GITHUB_WORKSPACE/lib/workflow/create_many_tests.rb
-          ruby $GITHUB_WORKSPACE/lib/workflow/create_many_tests.rb
+          sudo -E ruby $GITHUB_WORKSPACE/lib/workflow/create_many_tests.rb
