@@ -28,7 +28,7 @@ def switch_branches
   end
 end
 
-
+puts ENV.to_h
 switch_branches
 
 
