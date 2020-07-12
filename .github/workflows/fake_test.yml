@@ -15,6 +15,7 @@ jobs:
       MAIN_REPO: ${{ github.workspace }}/tweetster-rails-api
       THIS_REPO: ${{ github.workspace }}/${{ github.event.client_payload.repository_name }}
       SCRIPTS: ${{ github.workspace }}/tweetster-rails-api/lib/workflow
+      RAILS_ENV: test
     services:
       mysql:
         image: mysql:5.5
@@ -125,14 +126,20 @@ jobs:
           ruby $SCRIPTS/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
+      - name: rake db:create db:schema:load
+        working-directory: ${{ env.THIS_REPO }}
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
       - name: rake db:migrate
         working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
-          bundle exec rake db:create RAILS_ENV=test
-          bundle exec rake db:schema:load RAILS_ENV=test
-          bundle exec rake db:migrate RAILS_ENV=test
+          bundle exec rake db:migrate
 
       - name: rspec
         working-directory: ${{ env.THIS_REPO }}
