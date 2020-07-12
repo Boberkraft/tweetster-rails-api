@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 
+# hehe
+#
 case ENV['REPOSITORY_NAME']
 when 'chess'
   system('cp $GITHUB_WORKSPACE/Rails-4-Twitter-Clone/db/schema.rb-ci $GITHUB_WORKSPACE/chess/db/schema.rb')

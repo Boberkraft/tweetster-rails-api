@@ -122,7 +122,7 @@ jobs:
 
           bundle --jobs 4 --retry 3
 
-          cp db/schema.rb-ci db/schema.rb-ci
+          ruby $SCRIPTS/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
       - name: rake db:migrate
