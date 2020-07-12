@@ -12,7 +12,7 @@ jobs:
       REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
       TOKEN: ${{ secrets.TOKEN }}
-      MAIN_REPO: ${{ env.GITHUB_WORKSPACE }}/${{ github.event.client_payload.repository_name }}
+      MAIN_REPO: ${{ github.GITHUB_WORKSPACE }}/${{ github.event.client_payload.repository_name }}
     services:
       mysql:
         image: mysql:5.5
