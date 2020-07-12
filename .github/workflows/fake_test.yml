@@ -12,6 +12,7 @@ jobs:
       REPOSITORY_NAME: ${{ github.event.client_payload.repository_name }}
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
       TOKEN: ${{ secrets.TOKEN }}
+      MAIN_REPO: ${{ env.GITHUB_WORKSPACE }}/${{ github.event.client_payload.repository_name }}
     services:
       mysql:
         image: mysql:5.5
@@ -48,12 +49,11 @@ jobs:
       - name: create 🏃 link
         id: vars
         run: |
-          chmod 777 $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/create_run_url.rb
+          ruby $MAIN_REPO/lib/workflow/create_run_url.rb
       - name: send 🏃
         uses: peter-evans/create-or-update-comment@v1
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ env.TOKEN }}
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
@@ -86,16 +86,12 @@ jobs:
           path: Rails-4-Twitter-Clone
 
       - name: change branches on all repos
-        env:
-          BRANCH_NAME: master
-          GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}/tweetster-rails-api
-          MY_PATH: ${{ env.GITHUB_WORKSPACE }}
-        run: ruby lib/workflow/change_branches.rb
+        run: ruby $MAIN_REPO/lib/workflow/change_branches.rb
 
       - name: create gems cache key
         id: hash_key
         run: |
-          echo ::set-output name=key::$GITHUB_WORKSPACE/$REPOSITORY_NAME/Gemfile.lock
+          echo ::set-output name=key::$MAIN_REPO/Gemfile.lock
           echo $KEY
           cat $KEY
         env:
@@ -118,17 +114,17 @@ jobs:
           gem list
 
       - name: bundle
-        working-directory: ${{ env.REPOSITORY_NAME }}
+        working-directory: ${{ env.MAIN_REPO }}
         run: |
           gem list
 
           bundle --jobs 4 --retry 3
 
-          ruby $GITHUB_WORKSPACE/tweetster-rails-api/lib/workflow/prepare_schema.rb
+          ruby lib/workflow/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
       - name: rake db:migrate
-        working-directory: ${{ env.REPOSITORY_NAME }}
+        working-directory: ${{ env.MAIN_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
@@ -137,7 +133,7 @@ jobs:
           bundle exec rake db:migrate RAILS_ENV=test
 
       - name: rspec
-        working-directory: ${{ env.REPOSITORY_NAME }}
+        working-directory: ${{ env.MAIN_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bundle exec rspec
@@ -146,7 +142,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ env.TOKEN }}
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
@@ -156,7 +152,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ env.TOKEN }}
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
