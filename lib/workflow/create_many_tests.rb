@@ -9,12 +9,11 @@ headers = {
   'Authorization' => "Bearer #{ENV['TOKEN']}"
 }
 
-puts ENV.to_h
 ENV['REPOSITORIES'].split.each do |app_name|
   params = {
     event_type: "test",
     client_payload: {
-      branch_name: '....',
+      branch_name: ENV['BRANCH_NAME'],
       repository_name: app_name,
       comment_repository_name: ENV['REPOSITORY_NAME'],
       comment_id: ENV['COMMENT_ID']
