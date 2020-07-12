@@ -28,6 +28,7 @@ jobs:
 
     steps:
       - uses: baptouuuu/setup-neo4j@v1.0.0
+        name: 👷🔧 noe4j
         with:
           tag: '2.3.0'
 
@@ -40,6 +41,7 @@ jobs:
           echo "comment_id: ${{ github.event.client_payload.comment_id }}"
 
       - uses: ruby/setup-ruby@v1
+        name: 👷🔧 ruby
         with:
           ruby-version: 2.3.3
 
@@ -49,11 +51,11 @@ jobs:
           repository: Boberkraft/tweetster-rails-api
           path: tweetster-rails-api
 
-      - name: create 🏃 link
+      - name: 🏗️ 🏃 link
         id: vars
         run: |
           ruby $MAIN_REPO/lib/workflow/create_run_url.rb
-      - name: send 🏃
+      - name: 🔊 🏃
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ env.TOKEN }}
@@ -62,7 +64,7 @@ jobs:
           body: |
             > 🏃 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: starting MySQL
+      - name: 👷🔨 starting MySQL
         run: sudo service mysql start
 
       - name: DEBUG testing if db works
@@ -71,7 +73,7 @@ jobs:
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
-      - name: apt-get install
+      - name: 👷🔧 apt-get install
         run: |
           sudo apt-get install tree
           sudo apt-get install libmariadbclient-dev
@@ -88,10 +90,10 @@ jobs:
           repository: Boberkraft/Rails-4-Twitter-Clone
           path: Rails-4-Twitter-Clone
 
-      - name: change branches on all repos
+      - name: 🔀 change branches on all repos
         run: ruby $SCRIPTS/change_branches.rb
 
-      - name: create gems cache key
+      - name: 🏗️ 👷💎 cache 🔑
         id: hash_key
         run: |
           echo ::set-output name=key::$THIS_REPO/Gemfile.lock
@@ -100,7 +102,7 @@ jobs:
         env:
           KEY: ${{ steps.hash_key.outputs.key }}
 
-      - name: create gems cache
+      - name: 👷💎 cache
         uses: actions/cache@v2
         with:
           path: ~/vendor/bundle
@@ -110,13 +112,13 @@ jobs:
             ${{ runner.os }}-gem-
             ${{ runner.os }}-
 
-      - name: install bundler
+      - name: 💎 install bundler
         run: |
           gem install bundler --version=1.13  --no-ri --no-rdoc
           bundle config path ~/vendor/bundle
           gem list
 
-      - name: bundle
+      - name: bundle 💎
         working-directory: ${{ env.THIS_REPO }}
         run: |
           gem list
@@ -126,7 +128,7 @@ jobs:
           ruby $SCRIPTS/prepare_schema.rb
           mv config/database.yml-ci config/database.yml
 
-      - name: rake db:create db:schema:load
+      - name: 🗃 create schema:load
         working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
@@ -134,20 +136,20 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
-      - name: rake db:migrate
+      - name: 🗃 migrate
         working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           bundle exec rake db:migrate
 
-      - name: rspec
+      - name: 🥅 rspec
         working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bundle exec rspec
 
-      - name: send 💪🙂
+      - name: 🔊 💪🙂
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
@@ -157,7 +159,7 @@ jobs:
           body: |
             > 💪🙂 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: send 💔😭
+      - name: 🔊 💔😭
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
