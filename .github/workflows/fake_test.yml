@@ -93,9 +93,7 @@ jobs:
       - name: 🔀 change branches on all repos
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
-        run: |
-          chmod 777 $SCRIPTS/change_branches.rb
-          sudo $SCRIPTS/change_branches.rb
+        run: sudo -E $SCRIPTS/change_branches.rb
 
       - name: 👷🌳
         run: tree GITHUB_WORKSPACE
