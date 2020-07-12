@@ -20,6 +20,11 @@ jobs:
         with:
           ruby-version: 2.4.x
 
+      - name: Dump the client payload context
+        env:
+          PAYLOAD_CONTEXT: ${{ toJson(github.event.client_payload) }}
+        run: echo "$PAYLOAD_CONTEXT"
+        
       - name: Ping main repo
         run: |
           sudo -E ruby $GITHUB_WORKSPACE/lib/workflow/create_many_tests.rb
