@@ -14,7 +14,8 @@ def change_branch_cmd
   if remote_branch_exists?
     'git checkout $branch && git pull'
   else
-    'cat ":sad:"'
+    puts "branch:#{$branch} doesnt exists :/"
+    'echo :sad:'
   end
 end
 
