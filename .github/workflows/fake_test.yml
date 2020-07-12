@@ -67,7 +67,7 @@ jobs:
       - name: 👷🔨 starting MySQL
         run: sudo service mysql start
 
-      - name: DEBUG testing if db works
+      - name: DEBUG testing if 🗃 works
         run: |
           export MYSQL_HOST=127.0.0.1
           export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
@@ -91,7 +91,7 @@ jobs:
           path: Rails-4-Twitter-Clone
 
       - name: 🔀 change branches on all repos
-        run: ruby $SCRIPTS/change_branches.rb
+        run: sudo ruby $SCRIPTS/change_branches.rb
 
       - name: create️ 👷💎 🔑
         id: hash_key
