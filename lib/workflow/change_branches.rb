@@ -10,11 +10,11 @@ def remote_branch_exists?
   system("git branch --list #{$branch}| grep #{$branch}")
 end
 
-def change_branch_cmd
+def change_branch(repo)
   if remote_branch_exists?
     'git checkout $branch && git pull'
   else
-    puts "branch:#{$branch} doesnt exists :/"
+    puts "branch:#{$branch} doesn`t exists in repo:#{repo}"
     'echo :sad:'
   end
 end
@@ -25,7 +25,7 @@ end
 
 def switch_branches
   REPOS.each do |repo|
-    system("#{cd_repo(repo)} && #{change_branch_cmd}")
+    system("#{cd_repo(repo)} && #{change_branch_cmd(repo)}")
   end
 end
 
