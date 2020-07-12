@@ -93,6 +93,9 @@ jobs:
       - name: 🔀 change branches on all repos
         run: sudo ruby $SCRIPTS/change_branches.rb
 
+      - name: 👷🌳
+        run: tree GITHUB_WORKSPACE
+
       - name: create️ 👷💎 🔑
         id: hash_key
         run: |
