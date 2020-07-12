@@ -124,8 +124,6 @@ jobs:
       - name: 💎 bundle
         working-directory: ${{ env.THIS_REPO }}
         run: |
-          gem list
-
           bundle --jobs 4 --retry 3
 
           ruby $SCRIPTS/prepare_schema.rb
