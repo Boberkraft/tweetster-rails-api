@@ -127,9 +127,9 @@ jobs:
           bundle --jobs 4 --retry 3
 
       - name: 👷🔧 moving files
+        working-directory: ${{ env.THIS_REPO }}
         run: |
-          ruby $SCRIPTS/prepare_schema.rb
-          mv config/database.yml-ci config/database.yml
+          mv config/database.yml-ci config/database.yml || :
           mv config/database_archives.yml-dev config/database_archives.yml || :
           mv test/dummy/config/database.yml-dev test/dummy/config/database.yml || :
           mv test/dummy/config/database_archives.yml-dev test/dummy/config/database_archives.yml || :
@@ -141,6 +141,8 @@ jobs:
           mv config/database_betting_system.yml-dev config/database_betting_system.yml || :
           mv config/secrets.yml-dev config/secrets.yml || :
           mv config/shards.yml-dev config/shards.yml || :
+
+          ruby $SCRIPTS/prepare_schema.rb
 
       - name: 🗃 create schema:load
         working-directory: ${{ env.THIS_REPO }}
