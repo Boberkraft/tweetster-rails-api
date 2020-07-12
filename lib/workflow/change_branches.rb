@@ -25,7 +25,7 @@ end
 
 def switch_branches
   REPOS.each do |repo|
-    system("#{cd_repo(repo)} && #{change_branch_cmd(repo)}")
+    system("#{cd_repo(repo)} && #{change_branch(repo)}")
   end
 end
 
