@@ -13,6 +13,8 @@ jobs:
       BRANCH_NAME: ${{ github.event.client_payload.branch_name }}
       TOKEN: ${{ secrets.TOKEN }}
       MAIN_REPO: ${{ github.workspace }}/tweetster-rails-api
+      THIS_REPO: ${{ github.workspace }}/${{ github.event.client_payload.repository_name }}
+      SCRIPTS: ${{ github.workspace }}/tweetster-rails-api/lib/workflow
     services:
       mysql:
         image: mysql:5.5
@@ -86,12 +88,12 @@ jobs:
           path: Rails-4-Twitter-Clone
 
       - name: change branches on all repos
-        run: ruby $MAIN_REPO/lib/workflow/change_branches.rb
+        run: ruby $SCRIPTS/change_branches.rb
 
       - name: create gems cache key
         id: hash_key
         run: |
-          echo ::set-output name=key::$MAIN_REPO/Gemfile.lock
+          echo ::set-output name=key::$THIS_REPO/Gemfile.lock
           echo $KEY
           cat $KEY
         env:
@@ -114,17 +116,17 @@ jobs:
           gem list
 
       - name: bundle
-        working-directory: ${{ env.MAIN_REPO }}
+        working-directory: ${{ env.THIS_REPO }}
         run: |
           gem list
 
           bundle --jobs 4 --retry 3
 
-          ruby lib/workflow/prepare_schema.rb
+          cp db/schema.rb-ci db/schema.rb-ci
           mv config/database.yml-ci config/database.yml
 
       - name: rake db:migrate
-        working-directory: ${{ env.MAIN_REPO }}
+        working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
@@ -133,7 +135,7 @@ jobs:
           bundle exec rake db:migrate RAILS_ENV=test
 
       - name: rspec
-        working-directory: ${{ env.MAIN_REPO }}
+        working-directory: ${{ env.THIS_REPO }}
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bundle exec rspec
