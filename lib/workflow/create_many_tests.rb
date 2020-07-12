@@ -11,7 +11,7 @@ headers = {
 
 ENV['REPOSITORIES'].split.each do |app_name|
   params = {
-    event_type: "on-demand-test",
+    event_type: "test",
     client_payload: {
       branch_name: '....',
       repository_name: app_name,
