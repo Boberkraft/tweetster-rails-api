@@ -94,7 +94,7 @@ jobs:
         run: |
           chmod 777 $SCRIPTS/change_branches.rb
           sudo ruby $SCRIPTS/change_branches.rb
-        with:
+        env:
           GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
 
       - name: 👷🌳
