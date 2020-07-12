@@ -91,9 +91,7 @@ jobs:
           path: Rails-4-Twitter-Clone
 
       - name: 🔀 change branches on all repos
-        env:
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-        run: sudo -E $SCRIPTS/change_branches.rb
+        run: sudo -E ruby $SCRIPTS/change_branches.rb
 
       - name: 👷🌳
         run: tree GITHUB_WORKSPACE
