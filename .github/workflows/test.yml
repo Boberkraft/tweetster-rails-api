@@ -166,7 +166,7 @@ jobs:
           body: |
             > 💪😎 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: 🏷️ 🤔🤨
+      - name: 🏷️ 🔴🤯
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
@@ -174,4 +174,4 @@ jobs:
           repository: ${{ github.event.client_payload.comment_repository_name }}
           comment-id: ${{ github.event.client_payload.comment_id }}
           body: |
-            > 🤔🤨 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
+            > 🔴🤯 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
