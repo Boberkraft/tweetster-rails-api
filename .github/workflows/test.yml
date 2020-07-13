@@ -64,8 +64,6 @@ jobs:
           body: |
             > 🏃 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
-      - name: 👷🔨 starting MySQL
-        run: sudo service mysql start
 
       - name: DEBUG testing if 🗃 works
         run: |
