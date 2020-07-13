@@ -68,7 +68,7 @@ jobs:
       - name: DEBUG testing if 🗃 works
         run: |
           export MYSQL_HOST=127.0.0.1
-          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          export MYSQL_TCP_PORT=3306
           mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -padmin
 
       - name: 👷🔧 apt-get install
@@ -134,7 +134,6 @@ jobs:
       - name: 👷🔧 moving files
         working-directory: ${{ env.THIS_REPO }}
         run: |
-          mv config/database.yml-ci config/database.yml || :
           mv config/database_archives.yml-dev config/database_archives.yml || :
           mv test/dummy/config/database.yml-dev test/dummy/config/database.yml || :
           mv test/dummy/config/database_archives.yml-dev test/dummy/config/database_archives.yml || :
@@ -151,23 +150,17 @@ jobs:
 
       - name: 🗃 create schema:load
         working-directory: ${{ env.THIS_REPO }}
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
       - name: 🗃 migrate
         working-directory: ${{ env.THIS_REPO }}
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           bundle exec rake db:migrate
 
       - name: 🥅 rspec
         working-directory: ${{ env.THIS_REPO }}
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bundle exec rspec
 
       - name: 🏷️ 💪🙂
