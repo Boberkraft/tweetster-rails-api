@@ -77,6 +77,13 @@ jobs:
         run: |
           sudo apt-get install tree
           sudo apt-get install libmariadbclient-dev
+      - run: sudo tail -30 /var/log/mysql/error.log
+        if: failure()
+      - run: journalctl -xe
+        if: failure()
+      - run: systemctl status mysqld.service
+        if: failure()
+
 
       - name: ⬅️ chess
         uses: actions/checkout@v2
