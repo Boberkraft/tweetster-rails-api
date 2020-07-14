@@ -18,7 +18,7 @@ jobs:
       RAILS_ENV: test
     services:
       mysql:
-        image: mysql:5.5
+        image: mysql:d404d78aa797c87c255e5ae2beb5d8d0e4d095f930b1f20dc208eaa957477b74
         ports:
           - 3306:3306
         env:
@@ -27,7 +27,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=5s --health-retries=7
 
     steps:
-      - uses: baptouuuu/setup-neo4j@v1.0.0
+      - uses: baptouuuu/setup-neo4j@732fccb0f731d97bbdead31d5b898ecfafdff2df
         name: 👷🔧 noe4j
         with:
           tag: '2.3.0'
@@ -56,7 +56,7 @@ jobs:
         run: |
           ruby $MAIN_REPO/lib/workflow/create_run_url.rb
       - name: 🏷️ 🏃
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@507a8a6fbd5de0dfcea42b07c65b764b5ac4af76
         with:
           token: ${{ env.TOKEN }}
           repository: ${{ github.event.client_payload.comment_repository_name }}
@@ -157,7 +157,7 @@ jobs:
         run: bundle exec rspec
 
       - name: 🏷️ 💪😎
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@507a8a6fbd5de0dfcea42b07c65b764b5ac4af76
         if: success()
         with:
           token: ${{ env.TOKEN }}
@@ -167,7 +167,7 @@ jobs:
             > 💪😎 [${{ github.event.client_payload.repository_name }}](${{ steps.vars.outputs.run-url }})
 
       - name: 🏷️ 🔴🤯
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@507a8a6fbd5de0dfcea42b07c65b764b5ac4af76
         if: failure()
         with:
           token: ${{ env.TOKEN }}
