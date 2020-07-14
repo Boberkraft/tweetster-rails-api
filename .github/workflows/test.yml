@@ -90,9 +90,9 @@ jobs:
 
       - name: 🔀 change branches on all repos
         run: |
-          cd $GITHUB_WORKSPACE/chess && git checkout $BRANCH_NAME && git pull || :
-          cd $GITHUB_WORKSPACE/Rails-4-Twitter-Clone && git checkout $BRANCH_NAME && git pull || :
-          cd $GITHUB_WORKSPACE/tweetster-rails-api && git checkout $BRANCH_NAME && git pull || :
+          cd $GITHUB_WORKSPACE/chess && git checkout origin/$BRANCH_NAME && git pull || :
+          cd $GITHUB_WORKSPACE/Rails-4-Twitter-Clone && git checkout origin/$BRANCH_NAME && git pull || :
+          cd $GITHUB_WORKSPACE/tweetster-rails-api && git checkout origin/$BRANCH_NAME && git pull || :
 
       - name: 👷🌳
         run: tree $GITHUB_WORKSPACE
