@@ -18,7 +18,7 @@ jobs:
       RAILS_ENV: test
     services:
       mysql:
-        image: mysql@sha256:d404d78aa797c87c255e5ae2beb5d8d0e4d095f930b1f20dc208eaa957477b74
+        image: mysql:5.5.62
         ports:
           - 3306:3306
         env:
