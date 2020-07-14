@@ -89,7 +89,10 @@ jobs:
           path: Rails-4-Twitter-Clone
 
       - name: 🔀 change branches on all repos
-        run: sudo -E ruby $SCRIPTS/change_branches.rb
+        run: |
+          cd $GITHUB_WORKSPACE/chess && git checkout $BRANCH_NAME && git pull || :
+          cd $GITHUB_WORKSPACE/Rails-4-Twitter-Clone && git checkout $BRANCH_NAME && git pull || :
+          cd $GITHUB_WORKSPACE/tweetster-rails-api && git checkout $BRANCH_NAME && git pull || :
 
       - name: 👷🌳
         run: tree $GITHUB_WORKSPACE
