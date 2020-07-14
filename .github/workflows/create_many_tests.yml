@@ -13,7 +13,7 @@ jobs:
       COMMENT_ID: ${{ github.event.client_payload.github.payload.comment.id }}
       REPOSITORY_NAME: ${{ github.event.client_payload.github.payload.repository.full_name }}
       REPOSITORIES: ${{ github.event.client_payload.slash_command.args }}
-      BRANCH_NAME: ${{ github.event.client_payload.github.pull_request.head.ref }}
+      BRANCH_NAME: test-sypania
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
