@@ -4,17 +4,15 @@ require 'json'
 
 REPOS = %w[tweetster-rails-api chess Rails-4-Twitter-Clone]
 
-$branch = ENV['BRANCH_NAME']
-
 def remote_branch_exists?
-  system("git branch --list #{$branch}| grep #{$branch}")
+  system("git branch --list $BRANCH_NAME | grep $BRANCH_NAME")
 end
 
 def change_branch(repo)
   if remote_branch_exists?
-    'git checkout $branch && git pull'
+    'git checkout $BRANCH_NAME && git pull'
   else
-    puts "branch:#{$branch} doesn`t exists in repo:#{repo}"
+    puts "branch:$BRANCH_NAME doesn`t exists in repo:#{repo}"
     'echo :sad:'
   end
 end
@@ -25,6 +23,7 @@ end
 
 def switch_branches
   REPOS.each do |repo|
+    puts "#{'-'*10}#{repo}#{'-'*10}"
     system("#{cd_repo(repo)} && #{change_branch(repo)}")
   end
 end

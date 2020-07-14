@@ -92,7 +92,7 @@ jobs:
         run: sudo -E ruby $SCRIPTS/change_branches.rb
 
       - name: 👷🌳
-        run: tree GITHUB_WORKSPACE
+        run: tree $GITHUB_WORKSPACE
 
       - name: create️ 👷💎 🔑
         id: hash_key
