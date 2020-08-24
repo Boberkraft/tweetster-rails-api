@@ -16,8 +16,9 @@ jobs:
       BRANCH_NAME: test-sypania
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-ruby@v1
-
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
       - name: Ping main repo
         run: |
           sudo -E ruby $GITHUB_WORKSPACE/lib/workflow/create_many_tests.rb
